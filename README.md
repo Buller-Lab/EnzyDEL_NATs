@@ -34,8 +34,9 @@ GPU: 2x NVIDIA GeForce RTX 3090
 
 ## Software requirements
 To create and install a conda environment with Python 3.10 and necessary dependencies, run:
+```bash
 conda create -n pykvfinder_env python=3.10 pyKVFinder pandas openpyxl
-
+```
 # Instructions for use
 ## The followings scripts are provided:
 - pocket_analysis.py 
