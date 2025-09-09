@@ -17,9 +17,9 @@ In this repository we provide the code that was used for binding pocket analysis
 # Installation requirements
 
 this repository can be downloaded to your local machine via the command:
-
+```bash
 git clone https://github.com/Buller-Lab/EnzyDEL_NATs
-
+```
 this should only take a few seconds.
 
 # System Requirements
