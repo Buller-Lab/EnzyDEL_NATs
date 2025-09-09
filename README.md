@@ -28,9 +28,9 @@ this should only take a few seconds.
 
 This code was developed and tested on the following hardware:
 
-CPU: AMD Ryzen Threadripper 3970X 32-Core Processor
-Memory: 130 GiB RAM
-GPU: 2x NVIDIA GeForce RTX 3090
+- CPU: AMD Ryzen Threadripper 3970X 32-Core Processor
+- Memory: 130 GiB RAM
+- GPU: 2x NVIDIA GeForce RTX 3090
 
 ## Software requirements
 To create and install a conda environment with Python 3.10 and necessary dependencies, run:
