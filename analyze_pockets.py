@@ -5,8 +5,9 @@ import pandas as pd
 
 def process_pdb_file(filepath, probe_out, volume_cutoff):
     """Process PDB file with pyKVFinder."""
-    # Ensure output directory exists
-    output_folder = 'results'
+    # Create output folder based on PDB filename
+    filename = os.path.splitext(os.path.basename(filepath))[0]
+    output_folder = f'results_{filename}'
     os.makedirs(output_folder, exist_ok=True)
     
     # Run pyKVFinder workflow
@@ -20,7 +21,6 @@ def process_pdb_file(filepath, probe_out, volume_cutoff):
     )
     
     # Prepare output files
-    filename = os.path.splitext(os.path.basename(filepath))[0]
     results_toml = os.path.join(output_folder, f'results_{filename}.toml')
     output_pdb = os.path.join(output_folder, f'output_{filename}.pdb')
     histograms_pdf = os.path.join(output_folder, f'histograms_{filename}.pdf')
