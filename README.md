@@ -49,10 +49,10 @@ conda activate pykvfinder_env
 ```
 Run the pocket analysis (with default probe out and volume cutoffs)
 ```bash
-python process_pdb.py 1W4T.pdb --probe_out 8.0 --volume_cutoff 50.0
+python analyze_pockets.py 1W4T.pdb --probe_out 8.0 --volume_cutoff 50.0
 ```
 ```bash
-python process_pdb.py 7QI3.pdb --probe_out 8.0 --volume_cutoff 50.0
+python analyze_pockets.py 7QI3.pdb --probe_out 8.0 --volume_cutoff 50.0
 ```
 ## How to run the Boltz-2 cofolding (with 30 diffusions)
 Activate conda environment
