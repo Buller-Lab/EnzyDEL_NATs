@@ -33,16 +33,32 @@ Memory: 130 GiB RAM
 GPU: 2x NVIDIA GeForce RTX 3090
 
 ## Software requirements
-We installed the anaconda python distribution from: https://www.anaconda.com/products/individual and followed their download instructions. The specific versions we used for our analysis can be found in requirements.txt
+To create and install a conda environment with Python 3.10 and necessary dependencies, run:
+conda create -n pykvfinder_env python=3.10 pyKVFinder pandas openpyxl
 
-
-### The followings scripts are provided:
-a) pocket_analysis.py 
-b) boltz2x_cofolding.py
-c) identify_centroid.py
-
-
-
+# Instructions for use
+## The followings scripts are provided:
+- pocket_analysis.py 
+- boltz2x_cofolding.py
+- identify_centroid.py
+## How to run the pocket analysis
+Activate conda environment
+```bash
+conda activate pykvfinder_env
+```
+Run the pocket analysis (with default probe out and volume cutoffs)
+```bash
+python process_pdb.py example.pdb --probe_out 8.0 --volume_cutoff 50.0
+```
+## How to run the Boltz-2 cofolding (with 30 diffusions)
+Activate conda environment
+```bash
+conda activate pykvfinder_env
+```
+Run the pocket analysis (with default probe out and volume cutoffs)
+```bash
+python process_pdb.py example.pdb --probe_out 8.0 --volume_cutoff 50.0
+```
 # References
 
 If you utilize this code, please cite:
