@@ -33,15 +33,12 @@ This code was developed and tested on the following hardware:
 - GPU: 2x NVIDIA GeForce RTX 3090
 
 ## Software requirements
-To create and install separate conda environment (one per task) with Python 3.10 and necessary dependencies, run:
+To create conda environments with necessary dependencies, run:
 ```bash
-conda create -n pykvfinder_env python=3.10 pandas openpyxl && conda activate pykvfinder_env && pip install pyKVFinder
+conda env create --file pykvfinder_env.yml
 ```
 ```bash
-conda create -n boltz2_env python=3.10 pandas openpyxl && conda activate pykvfinder_env && pip install pyKVFinder
-```
-```bash
-conda create -n pykvfinder_env python=3.10 pandas openpyxl && conda activate pykvfinder_env && pip install pyKVFinder
+conda env create --file cofolding_env.yml
 ```
 # Instructions for use
 ## The followings scripts are provided:
@@ -63,11 +60,11 @@ python analyze_pockets.py 7QI3.pdb --probe_out 8.0 --volume_cutoff 50.0
 ## How to run the Boltz-2 cofolding (with 30 diffusions)
 Activate conda environment
 ```bash
-conda activate pykvfinder_env
+conda activate cofolding_env
 ```
-Run the pocket analysis (with default probe out and volume cutoffs)
+Run the cofolding (with input and output folder specified)
 ```bash
-python analyze_pockets.py example.pdb --probe_out 8.0 --volume_cutoff 50.0
+python boltz2x_cofolding.py --input_folder cofolding_input --output_folder cofolding_output
 ```
 # References
 
