@@ -66,6 +66,17 @@ Run the cofolding (with input and output folder specified)
 ```bash
 python boltz2x_cofolding.py --input_folder cofolding_input --output_folder cofolding_output
 ```
+
+## How to run the MDTraj & scikit-learn clustering to derive a representative conformation
+Activate conda environment
+```bash
+conda activate cofolding_env
+```
+Run the cofolding (with input and output folder specified, only one example is shown and path needs to be adapted for the other variants)
+```bash
+python identify_centroid.py --input_folder cofolding_output/boltz_results_05PaAT_chimera_Substrate/predictions/05PaAT_chimera_Substrate --output_folder cofolding_output/centroid_05PaAT_chimera_Substrate
+```
+
 # References
 
 If you utilize this code, please cite:
