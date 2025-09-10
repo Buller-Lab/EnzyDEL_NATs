@@ -43,10 +43,13 @@ To create conda environments with necessary dependencies, run:
 conda env create --file pykvfinder_env.yml
 ```
 ```bash
-conda create -n cofolding_env
+conda create -n cofolding_env python=3.11 -y
+conda activate cofolding_env
 git clone https://github.com/jwohlwend/boltz.git
-cd boltz; pip install -e .[cuda]
-cd ..
+cd boltz
+pip install -e .[cuda]
+
+
 ```
 ```bash
 conda env create --file clustering_env.yml
@@ -75,7 +78,8 @@ conda activate cofolding_env
 ```
 Run the cofolding (with input and output folder specified)
 ```bash
-python boltz2x_cofolding.py --input_folder cofolding_inputs --output_folder cofolding_outputs
+
+
 ```
 
 ## How to run the MDTraj & scikit-learn clustering to derive a representative conformation
