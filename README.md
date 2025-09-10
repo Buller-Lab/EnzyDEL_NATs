@@ -48,8 +48,7 @@ conda activate cofolding_env
 git clone https://github.com/jwohlwend/boltz.git
 cd boltz
 pip install -e .[cuda]
-
-
+cd ..
 ```
 ```bash
 conda env create --file clustering_env.yml
