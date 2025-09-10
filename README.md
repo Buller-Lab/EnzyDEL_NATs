@@ -33,15 +33,21 @@ This code was developed and tested on the following hardware:
 - GPU: 2x NVIDIA GeForce RTX 3090
 
 ## Software requirements
-To create and install a conda environment with Python 3.10 and necessary dependencies, run:
+To create and install separate conda environment (one per task) with Python 3.10 and necessary dependencies, run:
+```bash
+conda create -n pykvfinder_env python=3.10 pandas openpyxl && conda activate pykvfinder_env && pip install pyKVFinder
+```
+```bash
+conda create -n boltz2_env python=3.10 pandas openpyxl && conda activate pykvfinder_env && pip install pyKVFinder
+```
 ```bash
 conda create -n pykvfinder_env python=3.10 pandas openpyxl && conda activate pykvfinder_env && pip install pyKVFinder
 ```
 # Instructions for use
 ## The followings scripts are provided:
-- pocket_analysis.py 
-- boltz2x_cofolding.py
-- identify_centroid.py
+- pocket_analysis.py (identification of cavities and calculation of their dimensions based on pdb input)
+- boltz2x_cofolding.py (Boltz-2 co-folding with 30 diffusion models per input yml)
+- identify_centroid.py (Clustering of 30 Boltz-2 poses using ligand RMSD and determination of centroid of biggest cluster) 
 ## How to run the pocket analysis
 Activate conda environment
 ```bash
