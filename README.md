@@ -20,6 +20,11 @@ this repository can be downloaded to your local machine via the command:
 ```bash
 git clone https://github.com/Buller-Lab/EnzyDEL_NATs
 ```
+then navigate into the cloned repository with:
+```bash
+cd EnzyDEL_NATs
+```
+
 this should only take a few seconds.
 
 # System Requirements
