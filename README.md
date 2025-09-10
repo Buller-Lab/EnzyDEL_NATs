@@ -14,7 +14,7 @@ In this repository we provide the code that was used for binding pocket analysis
 
 [5] Pedregosa, Fabian, et al. "Scikit-learn: Machine learning in Python." the Journal of machine Learning research 12 (2011): 2825-2830.
 
-# Installation requirements
+# Installation
 
 this repository can be downloaded to your local machine via the command:
 ```bash
