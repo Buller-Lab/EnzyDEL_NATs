@@ -1,6 +1,6 @@
 ## This is the GitHub Repository for the publication: 
 
-# Engineering an enzyme cascade for a broad substrate scope facilitates DNA-encoded library technology
+# A tailored enzyme cascade facilitates DNA-encoded library technology and gives access to a broad substrate scope
 
 In this repository we provide the code that was used for binding pocket analysis using pyKVFinder [1] as well as Boltz-2 [2,3] based cofolding of different N-acetyltransferases with their DNA-tagged substrates (30 diffussion model replicates). Subsequently, a ligand RMSD-based clustering script based on MDTraj [4] and scikit-learn [5] was utilized to identify the largest cluster and select it's centroid as representative conformation.
 
@@ -94,5 +94,4 @@ python identify_centroid.py --input_folder boltz_results_05PaAT_chimera_Substrat
 # References
 
 If you utilize this code, please cite:
-
-add reference here
+Daniela Schaub, Alice Lessing et al. A tailored enzyme cascade facilitates DNA-encoded library technology and gives access to a broad substrate scope, 23 September 2025, PREPRINT (Version 1) available at Research Square [https://doi.org/10.21203/rs.3.rs-7598475/v1]
