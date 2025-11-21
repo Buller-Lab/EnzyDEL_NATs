@@ -47,7 +47,7 @@ conda create -n cofolding_env python=3.11 -y
 conda activate cofolding_env
 git clone https://github.com/jwohlwend/boltz.git
 cd boltz
-pip install -e .[cuda]
+pip install -e ."[cuda]"
 cd ..
 ```
 ```bash
