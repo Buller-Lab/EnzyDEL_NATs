@@ -88,7 +88,7 @@ conda activate clustering_env
 ```
 Run the clustering (with input and output folder specified; only one example is shown and path needs to be adapted for the other variants)
 ```bash
-python identify_centroid.py --input_folder boltz_results_05PaAT_chimera_Substrate/predictions/05PaAT_chimera_Substrate --output_folder centroid_05PaAT_chimera_Substrate
+python identify_centroids.py --input_folder boltz_results_05PaAT_chimera_Substrate/predictions/05PaAT_chimera_Substrate --output_folder centroid_05PaAT_chimera_Substrate
 ```
 
 # References
