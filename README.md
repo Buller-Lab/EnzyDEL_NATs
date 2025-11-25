@@ -63,9 +63,9 @@ Activate conda environment
 ```bash
 conda activate pykvfinder_env
 ```
-Run the pocket analysis (with adapted probe out and volume cutoffs)
+### Run the pocket analysis for 1W4T (with adapted probe out and volume cutoffs & 1W4T as reference for superposition)
 ```bash
-python scripts/analyze_pockets.py data/1W4T.pdb --probe_out 8.0 --volume_cutoff 50.0
+python scripts/analyze_pockets.py data/1W4T.pdb --probe_out 8.0 --volume_cutoff 50.0 --reference data/1W4T.pdb
 ```
 Expected Output:
 ```console
@@ -77,9 +77,9 @@ Chain A:
 - Cavities PDB: results_1W4T/cavities_1W4T_A.pdb
 Combined results saved: results_1W4T/pocket_results_1W4T.xlsx
 ```
-
+### Run the pocket analysis for 7QI3 (with adapted probe out and volume cutoffs & 1W4T as reference for superposition)
 ```bash
-python scripts/analyze_pockets.py data/7QI3.pdb --probe_out 8.0 --volume_cutoff 50.0
+python scripts/analyze_pockets.py data/7QI3.pdb --probe_out 8.0 --volume_cutoff 50.0 --reference data/1W4T.pdb
 ```
 Expected output:
 ## How to run the Boltz-2 cofolding (with 30 diffusions)
@@ -92,6 +92,7 @@ Run the cofolding (with input and output folder specified)
 python boltz2x_cofolding.py --input_folder cofolding_inputs
  
 ```
+Expected Output: Boltz-2 results folder for every yaml input
 
 ## How to run the MDTraj & scikit-learn clustering to derive a representative conformation
 Activate conda environment
@@ -102,6 +103,7 @@ Run the clustering (with input and output folder specified; only one example is 
 ```bash
 python identify_centroids.py --input_folder boltz_results_05PaAT_chimera_Substrate/predictions/05PaAT_chimera_Substrate --output_folder centroid_05PaAT_chimera_Substrate
 ```
+Expected Output: Output folder with a pdb file of the centroid of the most populated cluster.
 
 # References
 
