@@ -89,7 +89,7 @@ conda activate cofolding_env
 ```
 Run the cofolding (with input and output folder specified)
 ```bash
-python boltz2x_cofolding.py --input_folder cofolding_inputs
+python scripts/boltz2x_cofolding.py --input_folder cofolding_inputs
  
 ```
 Expected Output: Boltz-2 results folder for every yaml input
@@ -101,7 +101,7 @@ conda activate clustering_env
 ```
 Run the clustering (with input and output folder specified; only one example is shown and path needs to be adapted for the other variants)
 ```bash
-python identify_centroids.py --input_folder boltz_results_05PaAT_chimera_Substrate/predictions/05PaAT_chimera_Substrate --output_folder centroid_05PaAT_chimera_Substrate
+python scripts/identify_centroids.py --input_folder boltz_results_05PaAT_chimera_Substrate/predictions/05PaAT_chimera_Substrate --output_folder centroid_05PaAT_chimera_Substrate
 ```
 Expected Output: Output folder with a pdb file of the centroid of the most populated cluster.
 
