@@ -103,7 +103,7 @@ Run the clustering (with input and output folder specified; only one example is 
 ```bash
 python scripts/identify_centroids.py --input_folder boltz_results_05PaAT_chimera_Substrate/predictions/05PaAT_chimera_Substrate --output_folder centroid_05PaAT_chimera_Substrate
 ```
-Expected Output: Output folder with a pdb file of the centroid of the most populated cluster.
+Expected Output: Folder with a pdb file of the centroid of the most populated cluster.
 
 # References
 
