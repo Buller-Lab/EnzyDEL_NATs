@@ -21,3 +21,33 @@ Combined results saved: results_1W4T/pocket_results_1W4T.xlsx
 ```bash
 python scripts/analyze_pockets.py data/7QI3.pdb --probe_out 8.0 --volume_cutoff 50.0 --reference data/1W4T.pdb
 ```
+Expected Output:
+```console
+Chain A:
+- Protein PDB: results_7QI3/protein_7QI3_A_aligned.pdb
+- TOML: results_7QI3/results_7QI3_A.toml
+- PDB Output: results_7QI3/output_7QI3_A.pdb
+- Histograms: results_7QI3/histograms_7QI3_A.pdf
+- Cavities PDB: results_7QI3/cavities_7QI3_A.pdb
+
+Chain B:
+- Protein PDB: results_7QI3/protein_7QI3_B_aligned.pdb
+- TOML: results_7QI3/results_7QI3_B.toml
+- PDB Output: results_7QI3/output_7QI3_B.pdb
+- Histograms: results_7QI3/histograms_7QI3_B.pdf
+- Cavities PDB: results_7QI3/cavities_7QI3_B.pdb
+
+Chain C:
+- Protein PDB: results_7QI3/protein_7QI3_C_aligned.pdb
+- TOML: results_7QI3/results_7QI3_C.toml
+- PDB Output: results_7QI3/output_7QI3_C.pdb
+- Histograms: results_7QI3/histograms_7QI3_C.pdf
+- Cavities PDB: results_7QI3/cavities_7QI3_C.pdb
+
+Chain D:
+- Protein PDB: results_7QI3/protein_7QI3_D_aligned.pdb
+- TOML: results_7QI3/results_7QI3_D.toml
+- PDB Output: results_7QI3/output_7QI3_D.pdb
+- Histograms: results_7QI3/histograms_7QI3_D.pdf
+- Cavities PDB: results_7QI3/cavities_7QI3_D.pdb
+```
