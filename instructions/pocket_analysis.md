@@ -1,4 +1,4 @@
-## How to run the pocket analysis
+## Identification of cavities and calculation of their dimensions based on pdb input
 Activate conda environment
 ```bash
 conda activate pykvfinder_env
