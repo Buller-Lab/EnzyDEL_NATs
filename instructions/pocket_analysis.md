@@ -50,4 +50,6 @@ Chain D:
 - PDB Output: results_7QI3/output_7QI3_D.pdb
 - Histograms: results_7QI3/histograms_7QI3_D.pdf
 - Cavities PDB: results_7QI3/cavities_7QI3_D.pdb
+
+Combined results saved: results_7QI3/pocket_results_7QI3.xlsx
 ```
