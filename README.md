@@ -56,10 +56,8 @@ conda env create --file clustering_env.yml
 # Instructions for use
 ## The followings scripts are provided:
 - pocket_analysis.py (see [Instructions Pocket Analysis](instructions/pocket_analysis.md))
-- boltz2x_cofolding.py (see ... Boltz-2 co-folding with 30 diffusion models per input yml)
+- boltz2x_cofolding.py (see [Instructions Boltz-2 Cofolding](instructions/boltz_cofolding.md))
 - identify_centroid.py (Clustering of 30 Boltz-2 poses using ligand RMSD and determination of centroid of biggest cluster) 
-
-
 
 ## How to run the MDTraj & scikit-learn clustering to derive a representative conformation
 Activate conda environment
