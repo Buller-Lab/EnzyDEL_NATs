@@ -55,7 +55,7 @@ conda env create --file clustering_env.yml
 ```
 # Instructions for use
 ## The followings scripts are provided:
-- pocket_analysis.py (identification of cavities and calculation of their dimensions based on pdb input)
+- pocket_analysis.py (see [Instructions Pocket Analysis](docs/INSTALL.md); identification of cavities and calculation of their dimensions based on pdb input)
 - boltz2x_cofolding.py (Boltz-2 co-folding with 30 diffusion models per input yml)
 - identify_centroid.py (Clustering of 30 Boltz-2 poses using ligand RMSD and determination of centroid of biggest cluster) 
 
