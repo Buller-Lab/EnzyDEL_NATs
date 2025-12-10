@@ -114,7 +114,7 @@ conda activate clustering_env
    --perform_sensitivity_analysis
  ```
 #
-## Example
+### Example
  ```bash
  python scripts/identify_centroids.py \
    --input_folder boltz_results_42GmAT_Substrate/predictions/42GmAT_Substrate \
@@ -122,12 +122,12 @@ conda activate clustering_env
    --perform_sensitivity_analysis
  ```
 #
-## Output files (always created)
+### Output files (always created)
  - `centroid.pdb`                  → Most representative structure
  - `cluster_assignments.csv`       → Filename, RMSD to reference, cluster label
  - `silhouette_scores.csv`         → Justification of chosen number of clusters
 #
-## Additional files (only when `--perform_sensitivity_analysis` is used)
+### Additional files (only when `--perform_sensitivity_analysis` is used)
  - `sensitivity_analysis.csv`      → ARI, NMI, and centroid shift vs. number of models
  - `clustering_summary.png` / `.pdf` → 3-panel figure (silhouette + consistency + centroid stability)
 #
