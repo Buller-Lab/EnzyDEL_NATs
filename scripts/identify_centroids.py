@@ -2,66 +2,155 @@ import mdtraj as md
 import numpy as np
 import os
 import argparse
+import pandas as pd
 from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score, adjusted_rand_score, normalized_mutual_info_score
+from scipy.optimize import linear_sum_assignment
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# Set up argument parser
-parser = argparse.ArgumentParser(description="Process .cif files and cluster based on RMSD")
-parser.add_argument('--input_folder', required=True, help='Path to input folder containing .cif files')
-parser.add_argument('--output_folder', required=True, help='Path to output folder for results')
+# ----------------------------- Args -----------------------------
+parser = argparse.ArgumentParser()
+parser.add_argument('--input_folder', required=True, help="Folder containing .cif files")
+parser.add_argument('--output_folder', required=True, help="Folder to save results")
+parser.add_argument('--perform_sensitivity_analysis', action='store_true',
+                    help="If provided, perform sensitivity analysis on subset sizes")
 args = parser.parse_args()
 
-# Get directory paths from arguments
-input_directory = args.input_folder
-output_directory = args.output_folder
+input_dir = args.input_folder
+output_dir = args.output_folder
+os.makedirs(output_dir, exist_ok=True)
 
-# Create output directory if it doesn't exist
-os.makedirs(output_directory, exist_ok=True)
-
-# Step 1: Collect all .cif files in the input directory
-cif_files = [f for f in os.listdir(input_directory) if f.endswith('.cif')]
-
+# ----------------------------- Load & align -----------------------------
+cif_files = sorted([f for f in os.listdir(input_dir) if f.endswith('.cif')])
 if not cif_files:
-    raise FileNotFoundError(f"No .cif files found in {input_directory}.")
+    raise FileNotFoundError("No .cif files found in the input folder.")
+print(f"Found {len(cif_files)} structures.")
 
-# Step 2: Load the first structure as the reference
-ref_traj = md.load(os.path.join(input_directory, cif_files[0]))
-ref_protein = ref_traj.top.select("protein")  # Select protein atoms for superposition
-ref_chain1 = ref_traj.top.select("chainid 1")  # Select chain ID 1 for RMSD
+ref = md.load(os.path.join(input_dir, cif_files[0]))
+ref_protein = ref.top.select("protein")
+ref_chain1 = ref.top.select("chainid 1 or chainid 2")
 
-# Step 3: Load and superpose all trajectories to the reference
-trajectories = []
-for cif_file in cif_files:
-    traj = md.load(os.path.join(input_directory, cif_file))
-    traj.superpose(ref_traj, atom_indices=ref_protein)  # Superpose by protein atoms
-    trajectories.append(traj)
+trajectories = [
+    md.load(os.path.join(input_dir, f)).superpose(ref, atom_indices=ref_protein)
+    for f in cif_files
+]
 
-# Step 4: Compute RMSD for chain ID 1
-rmsds = []
-for traj in trajectories:
-    # Compute RMSD for chain ID 1 atoms only, relative to reference chain ID 1
-    rmsd = md.rmsd(traj, ref_traj, atom_indices=ref_chain1, ref_atom_indices=ref_chain1)
-    rmsds.append(rmsd[0])  # Single frame, so take first element
+# ----------------------------- RMSD -----------------------------
+rmsds = np.array([
+    md.rmsd(t, ref, atom_indices=ref_chain1)[0] for t in trajectories
+]).reshape(-1, 1)
 
-rmsds = np.array(rmsds).reshape(-1, 1)  # Reshape for clustering
+# ----------------------------- Silhouette -----------------------------
+max_k = min(10, len(cif_files) - 1)
+sil_data = []
+for k in range(2, max_k + 1):
+    labels = KMeans(n_clusters=k, random_state=42, n_init=10).fit_predict(rmsds)
+    score = silhouette_score(rmsds, labels)
+    sil_data.append({"n_clusters": k, "silhouette_score": score})
 
-# Step 5: Perform K-means clustering (adjust n_clusters as needed)
-n_clusters = min(3, len(cif_files))  # Example: use 3 clusters or fewer if less files
-kmeans = KMeans(n_clusters=n_clusters, random_state=42)
-kmeans.fit(rmsds)
-labels = kmeans.labels_
+sil_df = pd.DataFrame(sil_data)
+sil_df.to_csv(os.path.join(output_dir, "silhouette_scores.csv"), index=False)
 
-# Step 6: Find the centroid of the largest cluster
-cluster_sizes = np.bincount(labels)
-largest_cluster = np.argmax(cluster_sizes)
-cluster_indices = np.where(labels == largest_cluster)[0]
+best_k = int(sil_df.loc[sil_df["silhouette_score"].idxmax(), "n_clusters"])
+print(f"Best k = {best_k}")
 
-# Compute mean RMSD for the largest cluster
-cluster_rmsds = rmsds[cluster_indices]
-centroid_idx = cluster_indices[np.argmin(np.abs(cluster_rmsds - np.mean(cluster_rmsds)))]
+# ----------------------------- Final clustering -----------------------------
+km_full = KMeans(n_clusters=best_k, random_state=42, n_init=10).fit(rmsds)
+full_labels = km_full.labels_
+full_centroids = km_full.cluster_centers_.flatten()
 
-# Step 7: Save the centroid structure (entire system: protein + chain ID 1) as PDB
-centroid_traj = trajectories[centroid_idx]
-output_file = os.path.join(output_directory, 'centroid.pdb')
-centroid_traj.save_pdb(output_file)
+# Save centroid structure (closest to mean in the largest cluster)
+largest_cluster = np.argmax(np.bincount(full_labels))
+cluster_rmsds = rmsds[full_labels == largest_cluster].flatten()
+best_idx = np.where(full_labels == largest_cluster)[0][
+    np.argmin(np.abs(cluster_rmsds - cluster_rmsds.mean()))
+]
+trajectories[best_idx].save_pdb(os.path.join(output_dir, "centroid.pdb"))
 
-print(f"Centroid structure saved as '{output_file}' from file: {cif_files[centroid_idx]}")
+pd.DataFrame({
+    "filename": cif_files,
+    "RMSD_to_ref": rmsds.flatten(),
+    "cluster": full_labels
+}).to_csv(os.path.join(output_dir, "cluster_assignments.csv"), index=False)
+
+# ----------------------------- Sensitivity Analysis (Optional) -----------------------------
+if args.perform_sensitivity_analysis:
+    print("Performing sensitivity analysis...")
+
+    def match_shift(c1, c2):
+        cost = np.abs(c1.reshape(-1, 1) - c2.reshape(1, -1))
+        ri, ci = linear_sum_assignment(cost)
+        return cost[ri, ci].mean()
+
+    max_n = min(30, len(cif_files))
+    records = []
+    for n in range(1, max_n + 1):
+        rec = {"num_models": n}
+        if n < best_k:
+            rec.update({"ari": np.nan, "nmi": np.nan, "centroid_shift": np.nan})
+        else:
+            sub_rmsds = rmsds[:n]
+            km = KMeans(n_clusters=best_k, random_state=42, n_init=10).fit(sub_rmsds)
+            rec["ari"] = adjusted_rand_score(full_labels[:n], km.labels_)
+            rec["nmi"] = normalized_mutual_info_score(full_labels[:n], km.labels_)
+            rec["centroid_shift"] = match_shift(km.cluster_centers_.flatten(), full_centroids)
+        records.append(rec)
+
+    sens_df = pd.DataFrame(records)
+    sens_df.to_csv(os.path.join(output_dir, "sensitivity_analysis.csv"), index=False)
+
+    # ----------------------------- Plotting -----------------------------
+    sns.set_style("whitegrid")
+    plt.rcParams.update({"font.size": 13, "axes.labelsize": 14, "axes.titlesize": 15})
+    fig = plt.figure(figsize=(15, 4.8))
+    gs = fig.add_gridspec(1, 3, wspace=0.33)
+
+    # 1. Silhouette
+    ax1 = fig.add_subplot(gs[0, 0])
+    ax1.plot(sil_df["n_clusters"], sil_df["silhouette_score"],
+             marker='o', color='#2c7bb6', linewidth=3, markersize=8)
+    ax1.axvline(best_k, color='red', linestyle='--', linewidth=2, label=f'k = {best_k}')
+    ax1.set_ylim(0, 1)
+    ax1.set_xlabel("Number of clusters (k)")
+    ax1.set_ylabel("Silhouette score")
+    ax1.set_title("Silhouette Analysis")
+    ax1.legend()
+    ax1.grid(True, alpha=0.3)
+
+    # 2. Agreement scores
+    ax2 = fig.add_subplot(gs[0, 1])
+    valid = sens_df.dropna()
+    ax2.plot(valid["num_models"], valid["ari"], 's-', color='#d7191c', linewidth=3, label="ARI")
+    ax2.plot(valid["num_models"], valid["nmi"], '^-', color='#fdae61', linewidth=3, label="NMI")
+    ax2.set_ylim(0, 1)
+    ax2.set_xlabel("Number of models used")
+    ax2.set_ylabel("Agreement score")
+    ax2.set_title("Consistency with Full Clustering")
+    ax2.legend()
+    ax2.grid(True, alpha=0.3)
+
+    # 3. Centroid shift
+    ax3 = fig.add_subplot(gs[0, 2])
+    ax3.plot(valid["num_models"], valid["centroid_shift"],
+             'D-', color='#1a9850', linewidth=3, markersize=7)
+    ax3.set_ylim(0, 2)
+    ax3.set_xlabel("Number of models used")
+    ax3.set_ylabel("Mean centroid shift (nm)")
+    ax3.set_title("Centroid Stability")
+    ax3.grid(True, alpha=0.3)
+
+    # Save figures
+    plt.savefig(os.path.join(output_dir, "clustering_summary.png"), dpi=300, bbox_inches='tight')
+    plt.savefig(os.path.join(output_dir, "clustering_summary.pdf"), bbox_inches='tight')
+    plt.close()
+
+    print("\nSensitivity analysis completed.")
+    print("Figure with fixed axes saved as:")
+    print(" clustering_summary.png")
+    print(" clustering_summary.pdf")
+else:
+    print("\nSensitivity analysis skipped (add --perform_sensitivity_analysis to enable).")
+    print("Basic clustering results saved.")
+
+print("\nAll done!")
