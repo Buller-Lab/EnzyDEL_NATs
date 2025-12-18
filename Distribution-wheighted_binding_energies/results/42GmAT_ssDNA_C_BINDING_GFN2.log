@@ -1,0 +1,22 @@
+# Binding energy analysis (xtb/gxtb) with population filtering
+# Input XYZ : crest_conformers_gfn2.xyz
+# Engine    : gfn2
+# n_conf    : 1
+# n_sub     : 249
+# sub_sel   : 682:
+# q_sub     : -7
+# q_prot    : 3
+# q_tot     : -4
+# Temperature (K): 298.15
+# Etot_unit from comments: Eh
+# Population threshold (fraction): 1.00e-06
+# Energies in Eh and kJ/mol; populations from Etot(comment)
+# Conformers with pop < threshold are skipped for Eprot/Esub/Ebind.
+#
+ idx  Etot_raw        Etot_unit  Etot_rel(kJ/mol)  Eprot(Eh)          Esub(Eh)           Ebind(kJ/mol)   Pop
+------------------------------------------------------------------------------------------------------------
+   1  -1439.9372395602       Eh         0.000  -970.5294555975  -469.2694452009      -363.208   1.0000e+00
+
+# Boltzmann-weighted average binding energy (over conformers with pop >= 1.00e-06): -363.208 kJ/mol
+# Effective sum of populations used: 1.000000
+# E_bind = Etot(comment) - (Eprot + Esub), all at frozen complex geometries.

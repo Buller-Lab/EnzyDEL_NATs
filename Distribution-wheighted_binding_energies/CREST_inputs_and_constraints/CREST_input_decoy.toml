@@ -1,0 +1,24 @@
+# CREST 3 input file for active-site NCI-MTD (MTD only substrate)
+# Cluster model + frozen protein backbone
+
+input  = "CM_42GmAT_decoy_IN_opt.xyz"
+runtype = "nci-mtd"
+threads = 32
+
+[calculation]
+elog   = "energies.log"
+
+# Freeze backbone / environment atoms completely
+# (atom list format, 1-based indices as in CM.xyz)
+freeze = '330,61,70,71,79,89,103,114,120,129,145,148,154,158,164,181,192,196,204,213,214,226,232,233,236,250,267,273,282,283,286,289,295,304,310,319,328,329,338,345,355,356,360,364,368,370,376,387,396,404,414,420,428,439,444,451,458,465,484,493,502,524'
+
+[[calculation.level]]
+method = "gfnff"
+
+# System charge/multiplicity
+chrg = 3
+uhf  = 0
+
+# Implicit solvation: ALPB/GBSA water via tblite/xtb
+alpb = "water"
+

@@ -1,0 +1,68 @@
+# Binding energy analysis (xtb/gxtb) with population filtering
+# Input XYZ : crest_conformers_GFN2.xyz
+# Engine    : gfn2
+# n_conf    : 48
+# n_sub     : 60
+# q_sub     : 0
+# q_prot    : 3
+# q_tot     : 3
+# Temperature (K): 298.15
+# Etot_unit from comments: Eh
+# Population threshold (fraction): 1.00e-06
+# Energies in Eh and kJ/mol; populations from Etot(comment)
+# Conformers with pop < threshold are skipped for Eprot/Esub/Ebind.
+#
+ idx  Etot_raw        Etot_unit  Etot_rel(kJ/mol)  Eprot(Eh)          Esub(Eh)           Ebind(kJ/mol)   Pop
+------------------------------------------------------------------------------------------------------------
+   1  -691.6369862931       Eh         0.000  -611.2200377947  -80.3756846893      -108.338   9.9242e-01
+   2  -691.6323834367       Eh        12.085  -611.2150906909  -80.3756912688      -109.225   7.5776e-03
+   3  -691.6180616206       Eh        49.687      NA             NA              NA        1.9587e-09
+   4  -691.6147260856       Eh        58.444      NA             NA              NA        5.7243e-11
+   5  -691.6138801513       Eh        60.665      NA             NA              NA        2.3368e-11
+   6  -691.6134942544       Eh        61.678      NA             NA              NA        1.5528e-11
+   7  -691.6132526026       Eh        62.313      NA             NA              NA        1.2022e-11
+   8  -691.6106346034       Eh        69.186      NA             NA              NA        7.5123e-13
+   9  -691.6104347331       Eh        69.711      NA             NA              NA        6.0791e-13
+  10  -691.6100251278       Eh        70.787      NA             NA              NA        3.9394e-13
+  11  -691.6096504105       Eh        71.770      NA             NA              NA        2.6490e-13
+  12  -691.6058474735       Eh        81.755      NA             NA              NA        4.7190e-15
+  13  -691.6043975176       Eh        85.562      NA             NA              NA        1.0160e-15
+  14  -691.6040909985       Eh        86.367      NA             NA              NA        7.3439e-16
+  15  -691.6033108664       Eh        88.415      NA             NA              NA        3.2143e-16
+  16  -691.6032593006       Eh        88.550      NA             NA              NA        3.0435e-16
+  17  -691.6030385144       Eh        89.130      NA             NA              NA        2.4089e-16
+  18  -691.6025451521       Eh        90.425      NA             NA              NA        1.4285e-16
+  19  -691.5970201719       Eh       104.931      NA             NA              NA        4.1075e-19
+  20  -691.5934207259       Eh       114.381      NA             NA              NA        9.0771e-21
+  21  -691.5919736964       Eh       118.181      NA             NA              NA        1.9605e-21
+  22  -691.5915084435       Eh       119.402      NA             NA              NA        1.1977e-21
+  23  -691.5897178520       Eh       124.103      NA             NA              NA        1.7978e-22
+  24  -691.5896015926       Eh       124.409      NA             NA              NA        1.5895e-22
+  25  -691.5885164587       Eh       127.258      NA             NA              NA        5.0366e-23
+  26  -691.5876905887       Eh       129.426      NA             NA              NA        2.1002e-23
+  27  -691.5876659110       Eh       129.491      NA             NA              NA        2.0461e-23
+  28  -691.5858980145       Eh       134.132      NA             NA              NA        3.1459e-24
+  29  -691.5829879888       Eh       141.773      NA             NA              NA        1.4429e-25
+  30  -691.5772754823       Eh       156.771      NA             NA              NA        3.4014e-28
+  31  -691.5720578232       Eh       170.470      NA             NA              NA        1.3543e-30
+  32  -691.5711186326       Eh       172.936      NA             NA              NA        5.0085e-31
+  33  -691.5707198159       Eh       173.983      NA             NA              NA        3.2829e-31
+  34  -691.5698237225       Eh       176.335      NA             NA              NA        1.2708e-31
+  35  -691.5695942329       Eh       176.938      NA             NA              NA        9.9662e-32
+  36  -691.5679104167       Eh       181.359      NA             NA              NA        1.6751e-32
+  37  -691.5674041824       Eh       182.688      NA             NA              NA        9.7989e-33
+  38  -691.5630955638       Eh       194.000      NA             NA              NA        1.0218e-34
+  39  -691.5570472201       Eh       209.880      NA             NA              NA        1.6878e-37
+  40  -691.5535366850       Eh       219.097      NA             NA              NA        4.0981e-39
+  41  -691.5516940230       Eh       223.935      NA             NA              NA        5.8212e-40
+  42  -691.5506348538       Eh       226.716      NA             NA              NA        1.8960e-40
+  43  -691.5476801302       Eh       234.473      NA             NA              NA        8.2938e-42
+  44  -691.5457062781       Eh       239.656      NA             NA              NA        1.0253e-42
+  45  -691.5453415681       Eh       240.613      NA             NA              NA        6.9677e-43
+  46  -691.5446398291       Eh       242.456      NA             NA              NA        3.3137e-43
+  47  -691.5312797222       Eh       277.533      NA             NA              NA        2.3719e-49
+  48  -691.5231262649       Eh       298.939      NA             NA              NA        4.2147e-53
+
+# Boltzmann-weighted average binding energy (over conformers with pop >= 1.00e-06): -108.345 kJ/mol
+# Effective sum of populations used: 1.000000
+# E_bind = Etot(comment) - (Eprot + Esub), all at frozen complex geometries.
