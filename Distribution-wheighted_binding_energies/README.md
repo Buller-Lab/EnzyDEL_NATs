@@ -101,7 +101,7 @@ Script:
 
 - `rerank_xtb.py`  
   Performs single-point calculations and energy-based sorting of CREST conformers.
-  This is important for the Binding energy calculation, because E_tot will not be re-computed.
+  This is important for the Binding energy calculation, because E<sub>tot</sub> will not be re-computed.
 
 ---
 
@@ -111,17 +111,17 @@ Binding energies are computed using a Boltzmann-weighted ensemble approach.
 
 Binding energy Definition:
 
-E_bind = E_tot − (E_prot + E_sub)
+E<sub>bind</sub> = E<sub>tot</sub> − (E<sub>prot</sub> + E<sub>sub</sub>)
 
 Where:
 
-- E_tot is the electronic energy of the full CM (protein + binder)
-- E_prot is the electronic energy of the CM with the binder removed
-- E_sub is the electronic energy of the binder alone
+- E<sub>tot</sub> is the electronic energy of the full CM (protein + binder)
+- E<sub>prot</sub> is the electronic energy of the CM with the binder removed
+- E<sub>sub</sub> is the electronic energy of the binder alone
 
 Boltzmann weighting:
 
-- Conformer probabilities are computed using Boltzmann distribution, using E_tot
+- Conformer probabilities are computed using Boltzmann distribution, using E<sub>tot</sub>
 - Only conformers accounting for 99.9999% of the total population are included
 - The final binding energy is a population-weighted average over this ensemble
 
