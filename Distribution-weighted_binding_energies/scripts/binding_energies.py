@@ -450,7 +450,7 @@ def main():
         help=(
             "Population threshold (fraction) below which conformers are ignored "
             "for Eprot/Esub and binding-energy averaging. "
-            "Default: 1e-6 (i.e. 0.0001%)."
+            "Default: 1e-6 (i.e. 0.0001%%)."
         ),
     )
 
