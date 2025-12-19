@@ -1,7 +1,7 @@
 # Cluster-Model CREST Workflow for Enzyme–Ligand Binding Energies
 
 This folder contains scripts, inputs, instructions, and results to reproduce the cluster-model-based
-Distribution-wheighted binding energies calculation workflow. 
+Distribution-weighted binding energies calculation workflow. 
 
 ---
 
