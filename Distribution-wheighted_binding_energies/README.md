@@ -21,7 +21,7 @@ Enzyme–Ligand Structure
 → Cluster Model (6 Å cutoff)  
 → GFN2-xTB Minimization (fixed backbone)  
 → CREST (GFNFF, -nci, iMTD-GC)  
-→ GFN2-xTB / g-xTB Single Points  
+→ GFN2-xTB Single Point calculations  
 → Boltzmann-Weighted Binding Energy  
 
 ---
@@ -95,11 +95,7 @@ References:
 
 ## Conformer Re-ranking
 
-The final CREST conformers are re-ranked using single-point energy calculations at:
-
-- GFN2-xTB
-or
-- g-xTB (https://doi.org/10.26434/chemrxiv-2025-bjxvt)
+The final CREST conformers are re-ranked using single-point energy calculations at `GFN2-xTB` level of theory
 
 Script:
 
@@ -138,12 +134,10 @@ Script:
 
 ## Software Requirements
 
-- xTB (GFN2-xTB, GFNFF, g-xTB) (https://xtb-docs.readthedocs.io)
+- xTB (GFN2-xTB, GFNFF) (https://xtb-docs.readthedocs.io)
 - CREST 3 (https://crest-lab.github.io)
 - PyMOL
 - Python ≥ 3.8
-  - numpy
-  - scipy
 
 ---
 
@@ -156,7 +150,7 @@ Script:
 This will create the proteic part of the cluster model and also print the atoms to fix in further calculations.
 Add the binding molecule to the same xyz structure and save it. Make sure that the atom numbers are not shifted (it is recomended to put the binder after the proteic part to avoid atom ID shifting)
 
-- Set threads and memory that xtb will use. This is important or the xtb calculation will not finish (large number of atoms). Ajust for your machine, this are just recomended values:
+- Set threads and memory that xtb will use. This is important or the xtb calculation may not finish (large number of atoms). Ajust for your machine, this are some recomended values:
 
 ```
 ulimit -s unlimited
@@ -169,16 +163,16 @@ Minimize the structure at GFN2-xtb level using xtb.
 xtb CM_binder.xyz --alpb water --charge -4 --input XTB_constraints.inp --opt
 ```
 
-Remember to ajust the charge value (`--charge -4` in this example and the list of atoms to fix in the XTB_constraints.inp (example and constraints are available in the xtb_constraint_files folder)
+Remember to ajust the charge value (`--charge -4`) in this example and the list of atoms to fix in the XTB_constraints.inp (example and constraints are available in the xtb_constraint_files folder)
 
-This command will generate a `xtbolt.xyz` file and a `charge` file with and others. I recomend to rename the `xtbopt.xyz` to something that can be easily recognizable (`CM_binder_GFN2opt.xyz`), and `charge` must be placed, without changing the name, in the same place the CREST calculation will take place.
+This command will generate a `xtbolt.xyz` file and a `charge` file with and others. I recomend to rename the `xtbopt.xyz` to something that can be easily recognizable (like `CM_binder_GFN2opt.xyz`), and `charge` must be placed, without changing the name, in the same place the CREST calculation will take place.
 
 - Compute the conformers using CREST like this.
 ```
 crest crest_input.toml --nci --noopt —cinp CREST_constraints.inp
 ```
 
-CREST toml input and constraint files are available in the `CREST_inputs_and_constraints` folder. Remember to ajust the atoms fixed, the atoms selected for the metadynamics (binder/part of the binder), charge, and number of threads.
+CREST toml input and constraint files are available in the `CREST_inputs_and_constraints` folder. Remember to ajust the atoms fixed, the atoms selected for the metadynamics (binder/region of the binder), charge, and number of threads.
 
 This command will use CREST to create the conformers structures (`crest_conformers.xyz`) for your system that will be later used for the binding energy calculation.
 
@@ -187,14 +181,12 @@ This command will use CREST to create the conformers structures (`crest_conforme
 python rerank_xtb.py gfn2 crest_conformers.xyz crest_conformers_gfn2.xyz -4
 ```  
 
-Ajust the method (`gfn2` or `gxtb`) and charge to suit your system.
-
 - Compute the unbound energies and compute the weighted binding energies.
 Examples:
 ```
 python binding_energies.py crest_conformers_GFN2.xyz --engine gfn2 --q_sub 0 --q_prot 3 --sub_sel :60
-python binding_energies.py crest_conformers_gxtb.xyz --engine gxtb --q_sub 0 --q_prot 3 --sub_sel 40:60
+python binding_energies.py crest_conformers_GFN2.xyz --engine gfn2 --q_sub 0 --q_prot 3 --sub_sel 40:60
 python binding_energies.py crest_conformers_GFN2.xyz --engine gfn2 --q_sub -7 --q_prot 3 --sub_sel 682:
 ```
 
-Ajust the selection of method, atoms from the binder and charges of both protein (--q_prot) and binder (--q_sub) accordingly. The total energy of the system will not be re-computed, so it is important that the ranked conformers using the same method is used as input.
+Ajust the selection of method, atoms from the binder (`--sub_sel`) and charges of both protein (`--q_prot`) and binder (`--q_sub`) accordingly. The total energy of the system will not be re-computed, so it is important that the ranked conformers using the same method is used as input.
