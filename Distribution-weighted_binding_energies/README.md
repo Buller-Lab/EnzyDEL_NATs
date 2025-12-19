@@ -138,6 +138,7 @@ Script:
 - CREST 3 (https://crest-lab.github.io)
 - PyMOL
 - Python ≥ 3.8
+  - tqdm
 
 ---
 
