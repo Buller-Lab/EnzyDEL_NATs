@@ -26,7 +26,7 @@ Enzyme–Ligand Structure
 
 ---
 
-## Cluster Model Construction
+### 1. Cluster Model Construction
 
 Cluster models are generated starting from enzyme–binder structures.
 
@@ -44,9 +44,9 @@ Script:
 - `Pymol_CM_creation.py`  
   Automates truncation, addition of missing H atoms, and preparation of cluster models using PyMOL.
 
----
 
-## Geometry Optimization
+
+### 2. Geometry Optimization
 
 The full cluster model (protein + ligand) is optimized at the GFN2-xTB level of theory.
 
@@ -63,9 +63,9 @@ References:
 - ALPB: https://doi.org/10.1021/acs.jctc.1c00471  
 - FIRE optimizer: https://doi.org/10.1103/PhysRevLett.97.170201  
 
----
 
-## Conformational Sampling with CREST
+
+### 3. Conformational Sampling with CREST
 
 Binding conformers are generated using CREST at the GFNFF level of theory.
 
@@ -91,9 +91,9 @@ References:
 - GFNFF: https://doi.org/10.1002/anie.202004239  
 - iMTD-GC: https://doi.org/10.1039/C9CP06869D  
 
----
 
-## Conformer Re-ranking
+
+### 4. Conformer Re-ranking
 
 The final CREST conformers are re-ranked using single-point energy calculations at `GFN2-xTB` level of theory
 
@@ -103,9 +103,9 @@ Script:
   Performs single-point calculations and energy-based sorting of CREST conformers.
   This is important for the Binding energy calculation, because E<sub>tot</sub> will not be re-computed.
 
----
 
-## Binding Energy Calculation
+
+### 5. Binding Energy Calculation
 
 Binding energies are computed using a Boltzmann-weighted ensemble approach.
 
