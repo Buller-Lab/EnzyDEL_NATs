@@ -140,7 +140,10 @@ Script:
 - Python ≥ 3.8
   - tqdm
 
----
+```
+conda env create --file DWBE_env.yml
+conda activate DWBE_env
+```
 
 ## How to use
 
