@@ -49,6 +49,7 @@ git clone https://github.com/jwohlwend/boltz.git
 cd boltz
 pip install -e ."[cuda]"
 cd ..
+conda deactivate
 ```
 ```bash
 conda env create --file clustering_env.yml
