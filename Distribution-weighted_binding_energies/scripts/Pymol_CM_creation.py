@@ -1,4 +1,4 @@
-from pymol import cmd
+from pymol import cmd
 
 def make_cluster_model(selection="CM_sel",
                        tmp_obj="tmp1",
