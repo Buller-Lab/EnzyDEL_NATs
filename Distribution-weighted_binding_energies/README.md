@@ -188,9 +188,9 @@ python rerank_xtb.py gfn2 crest_conformers.xyz crest_conformers_gfn2.xyz -4
 - Compute the unbound energies and compute the weighted binding energies.
 Examples:
 ```
-python binding_energies.py crest_conformers_GFN2.xyz --engine gfn2 --q_sub 0 --q_prot 3 --sub_sel :60
-python binding_energies.py crest_conformers_GFN2.xyz --engine gfn2 --q_sub 0 --q_prot 3 --sub_sel 40:60
-python binding_energies.py crest_conformers_GFN2.xyz --engine gfn2 --q_sub -7 --q_prot 3 --sub_sel 682:
+python binding_energies.py crest_conformers_gfn2.xyz --engine gfn2 --q_sub 0 --q_prot 3 --sub_sel :60
+python binding_energies.py crest_conformers_gfn2.xyz --engine gfn2 --q_sub 0 --q_prot 3 --sub_sel 40:60
+python binding_energies.py crest_conformers_gfn2.xyz --engine gfn2 --q_sub -7 --q_prot 3 --sub_sel 682:
 ```
 
 Ajust the selection of method, atoms from the binder (`--sub_sel`) and charges of both protein (`--q_prot`) and binder (`--q_sub`) accordingly. The total energy of the system will not be re-computed, so it is important that the ranked conformers using the same method is used as input.
