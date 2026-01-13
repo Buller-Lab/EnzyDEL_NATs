@@ -2,7 +2,7 @@
 
 # A tailored enzyme cascade facilitates DNA-encoded library technology and gives access to a broad substrate scope
 
-In this repository we provide the code that was used for binding pocket analysis using pyKVFinder [1] as well as Boltz-2 [2,3] based cofolding of different N-acetyltransferases with their DNA-tagged substrates (30 diffussion model replicates). Subsequently, a ligand RMSD-based clustering script based on MDTraj [4] and scikit-learn [5] was utilized to identify the largest cluster and select it's centroid as representative conformation. For selected variants, binding conformations were optimized using CREST for metadynamics simulations and binding energy calculations were performed utilizing ...
+In this repository we provide the code that was used for binding pocket analysis using pyKVFinder [1] as well as Boltz-2 [2,3] based cofolding of different N-acetyltransferases with their DNA-tagged substrates (30 diffussion model replicates). Subsequently, a ligand RMSD-based clustering script based on MDTraj [4] and scikit-learn [5] was utilized to identify the largest cluster and select it's centroid as representative conformation. For selected variants, a Cluster-Model was generated and a CREST-based workflow for calculating enzyme–ligand binding energies was applied.
 
 [1] Guerra, João Victor da Silva, et al. "pyKVFinder: an efficient and integrable Python package for biomolecular cavity detection and characterization in data science." BMC bioinformatics 22.1 (2021): 607.
 
@@ -13,6 +13,8 @@ In this repository we provide the code that was used for binding pocket analysis
 [4] McGibbon, Robert T., et al. "MDTraj: a modern open library for the analysis of molecular dynamics trajectories." Biophysical journal 109.8 (2015): 1528-1532.
 
 [5] Pedregosa, Fabian, et al. "Scikit-learn: Machine learning in Python." the Journal of machine Learning research 12 (2011): 2825-2830.
+
+[6] Pracht, Philipp, et al. "CREST—A program for the exploration of low-energy molecular chemical space." The Journal of Chemical Physics 160.11 (2024).
 
 # Installation
 
@@ -59,6 +61,9 @@ conda env create --file clustering_env.yml
 - pocket_analysis.py (see [Instructions Pocket Analysis](instructions/pocket_analysis.md))
 - boltz2x_cofolding.py (see [Instructions Boltz-2 Cofolding](instructions/boltz_cofolding.md))
 - identify_centroid.py (see [Instructions Centroid Identification](instructions/centroid_identification.md))
+## Detailed instructions for the Cluster-Model CREST Workflow for Enzyme–Ligand Binding Energies:
+see [Binding Energy Calculation](Distribution-weighted_binding_energies/README.md) 
+
 
 # References
 
