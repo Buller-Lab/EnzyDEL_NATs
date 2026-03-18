@@ -122,7 +122,7 @@ def make_cluster_model(selection="CM_sel",
     # ------------------------------------------------------------------
     print("")
     print("=== FINAL CM_FIX atom IDs (to be fixed in the cluster model) ===")
-    cmd.iterate(cm_fix_sel, "print(ID)")
+    cmd.iterate(cm_fix_sel, "print(ID-1)")
     print("=================================================================")
     print(f"Total fixed atoms (CM_FIX): {cmd.count_atoms(cm_fix_sel)}")
     print("")
