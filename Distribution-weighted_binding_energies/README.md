@@ -74,12 +74,8 @@ Key settings:
 - CREST using the iMTD-GC algorithm (default)
 - `-nci` keyword to enhance noncovalent interaction sampling
 - The protein CM, CA atoms, and added hydrogens remain fixed
-- Only selected atoms (ligand, decoy atoms, or DNA-tag atoms up to the second base)
+- Only selected atoms (DNA-tag atoms up to the second base)
   are allowed to move and participate in the internal metadynamics
-
-
-For DNA-tag-containing systems:
-
 - DNA is truncated once it no longer interacts with the enzyme (typically the 6th base
   is excluded).
 - The terminal phosphate group is removed and the terminal O is protonated and fixed.
@@ -186,10 +182,8 @@ python rerank_xtb.py gfn2 crest_conformers.xyz crest_conformers_gfn2.xyz -4
 ```  
 
 - Compute the unbound energies and compute the weighted binding energies.
-Examples:
+Example:
 ```
-python binding_energies.py crest_conformers_gfn2.xyz --engine gfn2 --q_sub 0 --q_prot 3 --sub_sel :60
-python binding_energies.py crest_conformers_gfn2.xyz --engine gfn2 --q_sub 0 --q_prot 3 --sub_sel 40:60
 python binding_energies.py crest_conformers_gfn2.xyz --engine gfn2 --q_sub -7 --q_prot 3 --sub_sel 682:
 ```
 
