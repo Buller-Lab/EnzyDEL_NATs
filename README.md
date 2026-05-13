@@ -1,6 +1,8 @@
+
 ## This is the GitHub Repository for the publication: 
 
 # A tailored enzyme cascade facilitates DNA-encoded library technology and gives access to a broad substrate scope
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20138090.svg)](https://doi.org/10.5281/zenodo.20138090)
 
 In this repository we provide the code that was used for binding pocket analysis using pyKVFinder [1] as well as Boltz-2 [2,3] based cofolding of different N-acetyltransferases with their DNA-tagged substrates (30 diffussion model replicates). Subsequently, a ligand RMSD-based clustering script based on MDTraj [4] and scikit-learn [5] was utilized to identify the largest cluster and select it's centroid as representative conformation. For selected variants, a Cluster-Model was generated and a CREST-based workflow for calculating enzyme–ligand binding energies was applied.
 
